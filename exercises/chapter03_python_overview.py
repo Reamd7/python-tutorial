@@ -12,7 +12,7 @@
 """
 
 
-def calculator_basic_math(a, b):
+def calculator_basic_math(a, b) -> dict[str, float | None]:
     """
     练习 3.1.1: 基础数学运算
     
@@ -24,10 +24,15 @@ def calculator_basic_math(a, b):
         dict: 包含加减乘除结果的字典
     """
     # TODO: 返回包含 'add', 'subtract', 'multiply', 'divide' 键的字典
-    pass
+    return {
+        'add': a + b,
+        'subtract': a - b,
+        'multiply': a * b,
+        'divide': a / b if b != 0 else None,
+    }
 
 
-def calculator_power_and_modulo(base, exponent, divisor):
+def calculator_power_and_modulo(base: int, exponent: int, divisor: int) -> dict[str, int | None]:
     """
     练习 3.1.1: 幂运算和取模运算
     
@@ -40,10 +45,13 @@ def calculator_power_and_modulo(base, exponent, divisor):
         dict: 包含幂运算和取模结果的字典
     """
     # TODO: 返回包含 'power', 'modulo' 键的字典
-    pass
+    return {
+        'power': base ** exponent,
+        'modulo': base % divisor if divisor != 0 else None,
+    }
 
 
-def string_concatenation_and_repetition(text, times):
+def string_concatenation_and_repetition(text: str, times: int) -> dict[str, str | int]:
     """
     练习 3.1.2: 字符串连接和重复
     
@@ -57,10 +65,14 @@ def string_concatenation_and_repetition(text, times):
     # TODO: 返回包含 'repeated', 'length' 键的字典
     # repeated: 字符串重复 times 次
     # length: 重复后字符串的长度
-    pass
+    repeated = text * times
+    return {
+        'repeated': repeated,
+        'length': len(repeated),
+    }
 
 
-def string_indexing_and_slicing(text):
+def string_indexing_and_slicing(text: str) -> dict[str, str]:
     """
     练习 3.1.2: 字符串索引和切片
     
@@ -76,10 +88,16 @@ def string_indexing_and_slicing(text):
     # 'first_three': 前三个字符
     # 'last_three': 后三个字符
     # 'reverse': 反转的字符串
-    pass
+    return {
+        'first_char': text[0],
+        'last_char': text[-1],
+        'first_three': text[:3],
+        'last_three': text[-3:],
+        'reverse': text[::-1],
+    }
 
 
-def list_operations(numbers):
+def list_operations(numbers: list[int]) -> dict[str, int | float | list[int]]:
     """
     练习 3.1.3: 列表基础操作
     
@@ -95,10 +113,17 @@ def list_operations(numbers):
     # 'max': 最大值
     # 'min': 最小值
     # 'reversed': 反转的列表
-    pass
+    length = len(numbers)
+    return {
+        'length': length,
+        'sum': sum(numbers),
+        'max': max(numbers) if length > 0 else None,
+        'min': min(numbers) if length > 0 else None,
+        'reversed': numbers[::-1],
+    }
 
 
-def list_methods_demo(original_list):
+def list_methods_demo(original_list: list[int]) -> dict[str, list[int]]:
     """
     练习 3.1.3: 列表方法演示
     
@@ -113,8 +138,20 @@ def list_methods_demo(original_list):
     # 'extended': 扩展 [200, 300] 后的列表
     # 'inserted': 在索引 1 处插入 50 后的列表
     # 'sorted': 排序后的列表
-    pass
-
+    appended = original_list.copy()
+    appended.append(100)
+    extended = original_list.copy()
+    extended.extend([200, 300])
+    inserted = original_list.copy()
+    inserted.insert(1, 50)
+    sorted = original_list.copy()
+    sorted.sort()
+    return {
+        'appended': appended,
+        'extended': extended,
+        'inserted': inserted,
+        'sorted': sorted,
+    }
 
 def fibonacci_sequence(n):
     """
@@ -131,7 +168,17 @@ def fibonacci_sequence(n):
     # TODO: 实现斐波那契数列生成
     # 提示：a, b = 0, 1
     # 使用 while 循环，当 a < n 时继续
-    pass
+    if n <= 0:
+        return []
+    if n == 1:
+        return [0, 1]
+
+    result = []
+    a, b = 0, 1
+    while a < n:
+        result.append(a)
+        a, b = b, a + b 
+    return result
 
 
 def print_number_series(start, end, step=1):
@@ -147,10 +194,10 @@ def print_number_series(start, end, step=1):
         list: 数字序列列表
     """
     # TODO: 生成从 start 到 end（不包含）步长为 step 的数字列表
-    pass
+    return list(range(start, end, step))
 
 
-def string_formatting_demo(name, age, score):
+def string_formatting_demo(name: str, age: int, score: float) -> dict[str, str]:
     """
     练习 3.1.2: 字符串格式化
     
@@ -167,7 +214,14 @@ def string_formatting_demo(name, age, score):
     # 'format_method': 使用 .format() 方法
     # 'percent_style': 使用 % 格式化（如果你了解的话）
     # 格式："{name}今年{age}岁，考试得了{score:.1f}分"
-    pass
+    f_string = f"{name}今年{age}岁，考试得了{score:.1f}分"
+    format_method = "{name}今年{age}岁，考试得了{score:.1f}分".format(name=name, age=age, score=score)
+    percent_style = "%s今年%d岁，考试得了%.1f分" % (name, age, score)
+    return {
+        'f_string': f_string,
+        'format_method': format_method,
+        'percent_style': percent_style,
+    }
 
 
 if __name__ == "__main__":

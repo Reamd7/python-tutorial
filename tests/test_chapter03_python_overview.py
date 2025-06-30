@@ -125,6 +125,9 @@ def test_fibonacci_sequence():
     # 测试边界情况
     assert fibonacci_sequence(0) == []
     assert fibonacci_sequence(1) == [0, 1]
+    assert fibonacci_sequence(2) == [0, 1, 1]
+    assert fibonacci_sequence(3) == [0, 1, 1, 2]
+
 
 
 def test_print_number_series():
