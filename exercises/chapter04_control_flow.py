@@ -14,7 +14,7 @@
 """
 
 
-def grade_classifier(score):
+def grade_classifier(score: int) -> str:
     """
     练习 4.1: if 语句 - 成绩分类器
     
@@ -26,10 +26,19 @@ def grade_classifier(score):
     """
     # TODO: 使用 if-elif-else 实现成绩分类
     # 90-100: A, 80-89: B, 70-79: C, 60-69: D, 0-59: F
-    pass
+    if score >= 90:
+        return 'A'
+    elif score >= 80:
+        return 'B'
+    elif score >= 70:
+        return 'C'
+    elif score >= 60:
+        return 'D'
+    else:
+        return 'F'
 
 
-def number_analysis(numbers):
+def number_analysis(numbers: list[int]) -> dict[str, int]:
     """
     练习 4.2: for 语句 - 数字列表分析
     
@@ -45,7 +54,29 @@ def number_analysis(numbers):
     # 'positive_count': 正数个数
     # 'negative_count': 负数个数
     # 'zero_count': 零的个数
-    pass
+    even_count = 0
+    odd_count = 0
+    positive_count = 0
+    negative_count = 0
+    zero_count = 0
+    for number in numbers:
+        if number % 2 == 0:
+            even_count += 1
+        else:
+            odd_count += 1
+        if number > 0:
+            positive_count += 1
+        elif number == 0:
+            zero_count += 1
+        else:
+            negative_count += 1
+    return {
+        "even_count": even_count,
+        "odd_count": odd_count,
+        "positive_count": positive_count,
+        "negative_count": negative_count,
+        "zero_count": zero_count,
+    }
 
 
 def range_experiments():
@@ -60,10 +91,15 @@ def range_experiments():
     # 'range_5_15': list(range(5, 15))
     # 'range_0_20_2': list(range(0, 20, 2))
     # 'range_20_0_minus2': list(range(20, 0, -2))
-    pass
+    return {
+        "range_10": list(range(10)),
+        "range_5_15": list(range(5, 15)),
+        "range_0_20_2": list(range(0, 20, 2)),
+        "range_20_0_minus2": list(range(20, 0, -2)),
+    }
 
 
-def find_primes(limit):
+def find_primes(limit: int) -> list[int]:
     """
     练习 4.4: break 和 continue - 素数查找
     
@@ -75,10 +111,25 @@ def find_primes(limit):
     """
     # TODO: 实现素数查找算法
     # 使用 continue 跳过非素数，break 优化内层循环
-    pass
+
+    # 素数列表
+    primes_list = []
+    for i in range(2, limit):
+        if i == 2:
+            primes_list.append(i)
+            continue
+        mid = int(i ** 0.5)
+        for j in primes_list:
+            if j > mid:
+                break
+            if i % j == 0: # 如果i能被result中的某个数整除，则i不是素数
+                break
+        else:
+            primes_list.append(i)
+    return primes_list
 
 
-def factorial_function(n):
+def factorial_function(n: int) -> int:
     """
     练习 4.8: 函数定义 - 阶乘计算
     
@@ -90,10 +141,12 @@ def factorial_function(n):
     """
     # TODO: 实现阶乘函数
     # 处理边界情况：0! = 1
-    pass
+    if n == 0:
+        return 1
+    return n * factorial_function(n - 1)
 
 
-def power_with_default(base, exponent=2):
+def power_with_default(base: float, exponent: float = 2) -> float:
     """
     练习 4.9.1: 默认参数 - 幂运算
     
@@ -105,10 +158,13 @@ def power_with_default(base, exponent=2):
         float: base 的 exponent 次方
     """
     # TODO: 实现幂运算函数
-    pass
+    result = 1
+    for i in range(exponent):
+        result *= base
+    return result
 
 
-def person_info(name, age, city="未知", **kwargs):
+def person_info(name: str, age: int, city: str = "未知", **kwargs) -> dict[str, str | int]:
     """
     练习 4.9.2: 关键字参数 - 个人信息
     
@@ -122,10 +178,15 @@ def person_info(name, age, city="未知", **kwargs):
         dict: 包含所有个人信息的字典
     """
     # TODO: 创建包含所有信息的字典并返回
-    pass
+    return {
+        "name": name,
+        "age": age,
+        "city": city,
+        **kwargs,
+    }
 
-
-def apply_operation(numbers, operation):
+from typing import Callable
+def apply_operation(numbers: list[int], operation: Callable[[int], int]) -> list[int]:
     """
     练习 4.9.6: Lambda 表达式应用
     
@@ -137,10 +198,10 @@ def apply_operation(numbers, operation):
         list: 应用操作后的结果列表
     """
     # TODO: 对列表中的每个数字应用 operation 函数
-    pass
+    return [operation(number) for number in numbers]
 
 
-def create_multiplier(factor):
+def create_multiplier(factor: int) -> Callable[[int], int]:
     """
     练习 4.9.6: 闭包和 Lambda - 创建乘法器
     
@@ -151,10 +212,10 @@ def create_multiplier(factor):
         function: 返回一个将输入乘以 factor 的函数
     """
     # TODO: 返回一个 lambda 函数，该函数将输入乘以 factor
-    pass
+    return lambda x: x * factor
 
 
-def validate_input(value, min_val=0, max_val=100, value_type=int):
+def validate_input(value: int, min_val: int = 0, max_val: int = 100, value_type: type = int) -> dict[str, bool | str]:
     """
     练习 4.9: 复合参数类型 - 输入验证
     
@@ -168,10 +229,22 @@ def validate_input(value, min_val=0, max_val=100, value_type=int):
         dict: 验证结果 {'valid': bool, 'message': str}
     """
     # TODO: 验证输入值的类型和范围
-    pass
+    if not isinstance(value, value_type):
+        return {
+            "valid": False,
+            "message": f"type error: input value type is {type(value)}, expected type is {value_type}"
+        }
+    if value < min_val or value > max_val:
+        return {
+            "valid": False,
+            "message": f"range error: input value is {value}, expected range is {min_val} to {max_val}"
+        }
+    return {
+        "valid": True,
+        "message": "input value is valid"
+    }
 
-
-def loop_with_else_demo(numbers, target):
+def loop_with_else_demo(numbers: list[int], target: int) -> dict[str, bool | int | str]:
     """
     练习 4.5: 循环的 else 子句
     
@@ -185,7 +258,19 @@ def loop_with_else_demo(numbers, target):
     # TODO: 在列表中查找目标值
     # 使用 for-else 结构
     # 返回 {'found': bool, 'index': int or None, 'message': str}
-    pass
+    for i, number in enumerate(numbers):
+        if number == target:
+            return {
+                "found": True,
+                "index": i,
+                "message": f"target {target} found at index {i}"
+            }
+    else:
+        return {
+            "found": False,
+            "index": None,
+            "message": f"target {target} not found"
+        }
 
 
 def match_statement_demo(value):
@@ -200,7 +285,15 @@ def match_statement_demo(value):
     """
     # TODO: 使用 match 语句处理不同类型的值
     # 如果 Python 版本不支持，可以用 if-elif 替代
-    pass
+    match value:
+        case int():
+            return f"int: {value}"
+        case str():
+            return f"str: {value}"
+        case list():
+            return f"list: {value}"
+        case _:
+            return f"unknown type: {type(value)}"
 
 
 if __name__ == "__main__":
