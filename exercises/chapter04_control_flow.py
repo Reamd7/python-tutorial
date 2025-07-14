@@ -158,10 +158,7 @@ def power_with_default(base: float, exponent: float = 2) -> float:
         float: base 的 exponent 次方
     """
     # TODO: 实现幂运算函数
-    result = 1
-    for i in range(exponent):
-        result *= base
-    return result
+    return base ** exponent
 
 
 def person_info(name: str, age: int, city: str = "未知", **kwargs) -> dict[str, str | int]:
@@ -244,7 +241,7 @@ def validate_input(value: int, min_val: int = 0, max_val: int = 100, value_type:
         "message": "input value is valid"
     }
 
-def loop_with_else_demo(numbers: list[int], target: int) -> dict[str, bool | int | str]:
+def loop_with_else_demo(numbers: list[int], target: int) -> dict[str, bool | int | str | None]:
     """
     练习 4.5: 循环的 else 子句
     

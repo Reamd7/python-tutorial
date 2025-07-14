@@ -34,6 +34,22 @@ def create_simple_module_content():
     # - 一个函数 greet(name) 返回问候语
     # - 一个简单的类 Calculator，有 add 和 multiply 方法
     # - __name__ == "__main__" 的测试代码
+    import math
+    PI = math.pi
+    def greet(name):
+        return f"Hello, {name}!"
+    class Calculator:
+        def add(self, a, b):
+            return a + b
+        def multiply(self, a, b):
+            return a * b
+    if __name__ == "__main__":
+        print(f"PI: {PI}")
+        print(greet("Alice"))
+        calc = Calculator()
+        print(calc.add(2, 3))
+        print(calc.multiply(2, 3))
+
     pass
 
 
@@ -54,6 +70,19 @@ def demonstrate_import_variations(module_name="math"):
     # 'from_import_as': 使用 from math import pi as PI
     # 'from_import_all': 说明 from math import * 的效果（但不要真的用）
     # 每个键对应的值应该是相关计算结果或说明
+
+    import math
+    import math as m
+    from math import pi, sqrt
+    from math import pi as PI
+    # from math import *
+    return {
+        'import_module': math.pi,
+        'import_as': m.pi,
+        'from_import': pi,
+        'from_import_as': PI,
+        # 'from_import_all': 
+    }
     pass
 
 
@@ -74,6 +103,21 @@ def analyze_module_attributes(module_name="random"):
     # 'functions': 函数类型的属性列表（使用 callable() 检查）
     # 'module_name': 模块的 __name__ 属性
     # 'module_doc': 模块的 __doc__ 属性的前100个字符
+    attributes = dir(module_name)
+    total_attributes = len(attributes)
+    public_attributes = [attr for attr in attributes if not attr.startswith('_')]
+    private_attributes = [attr for attr in attributes if attr.startswith('_')]
+    functions = [attr for attr in public_attributes if callable(getattr(module_name, attr))]
+    module_name = getattr(module_name, '__name__')
+    module_doc = getattr(module_name, '__doc__')[:100]
+    return {
+        'total_attributes': total_attributes,
+        'public_attributes': len(public_attributes),
+        'private_attributes': len(private_attributes),
+        'functions': functions,
+        'module_name': module_name,
+        'module_doc': module_doc,
+    }
     pass
 
 
@@ -90,7 +134,20 @@ def module_search_path_info():
     # 'python_executable': Python 解释器路径
     # 'path_length': sys.path 的长度
     # 'builtin_modules': 内置模块数量 len(sys.builtin_module_names)
-    pass
+    import sys
+    import os
+    python_path = sys.path
+    current_directory = os.getcwd()
+    python_executable = sys.executable
+    path_length = len(sys.path)
+    builtin_modules = len(sys.builtin_module_names)
+    return {
+        'python_path': python_path,
+        'current_directory': current_directory,
+        'python_executable': python_executable,
+        'path_length': path_length,
+        'builtin_modules': builtin_modules,
+    }
 
 
 def create_package_structure():
@@ -115,6 +172,28 @@ def create_package_structure():
     #   data/
     #     __init__.py
     #     processing.py
+    package_tree = {
+        'mypackage': {
+            '__init__.py': '',
+            'utils': {
+                '__init__.py': '',
+                'helpers.py': '',
+            },
+            'data': {
+                '__init__.py': '',
+                'processing.py': '',
+            },
+        },
+    }
+    init_files = ['__init__.py']
+    module_files = ['helpers.py', 'processing.py']
+    import_examples = ['from mypackage.utils import helpers', 'from mypackage.data import processing']
+    return {
+        'package_tree': package_tree,
+        'init_files': init_files,
+        'module_files': module_files,
+        'import_examples': import_examples,
+    }
     pass
 
 
@@ -131,6 +210,18 @@ def relative_import_examples():
     # 'same_level': 同级导入示例 (from . import module)
     # 'parent_level': 父级导入示例 (from .. import module)
     # 'best_practices': 最佳实践建议列表
+    absolute_imports = ['from mypackage.utils import helpers', 'from mypackage.data import processing']
+    relative_imports = ['from .utils import helpers', 'from ..data import processing']
+    same_level = ['from . import utils', 'from . import data']
+    parent_level = ['from .. import utils', 'from .. import data']
+    best_practices = ['from mypackage.utils import helpers', 'from mypackage.data import processing']
+    return {
+        'absolute_imports': absolute_imports,
+        'relative_imports': relative_imports,
+        'same_level': same_level,
+        'parent_level': parent_level,
+        'best_practices': best_practices,
+    }
     pass
 
 
@@ -147,6 +238,18 @@ def standard_library_explorer():
     # 'datetime_example': 使用 datetime 模块的示例结果
     # 'random_example': 使用 random 模块的示例结果
     # 'math_example': 使用 math 模块的示例结果
+    import os
+    import sys
+    import datetime
+    import random
+    import math
+    return {
+        'os_example': os.getcwd(),
+        'sys_example': sys.path,
+        'datetime_example': datetime.datetime.now(),
+        'random_example': random.randint(1, 100),
+        'math_example': math.pi,
+    }
     pass
 
 
@@ -162,6 +265,18 @@ def module_reloading_demo():
     # 'reload_explanation': 解释为什么通常不需要重新加载模块
     # 'importlib_usage': 说明如何使用 importlib.reload()
     # 'module_cache': 说明 sys.modules 的作用
+    import importlib
+    import sys
+    loaded_modules = len(sys.modules)
+    reload_explanation = "通常不需要重新加载模块，因为模块在第一次导入时会被缓存。"
+    importlib_usage = "可以使用 importlib.reload() 重新加载模块。"
+    module_cache = "sys.modules 是一个字典，存储了所有已加载的模块。"
+    return {
+        'loaded_modules': loaded_modules,
+        'reload_explanation': reload_explanation,
+        'importlib_usage': importlib_usage,
+        'module_cache': module_cache,
+    }
     pass
 
 
@@ -177,6 +292,16 @@ def namespace_and_scope_demo():
     # 'global_namespace': 全局命名空间中的一些变量
     # 'builtin_namespace': 内置命名空间的一些函数
     # 'module_namespace': 导入模块的命名空间示例
+    local_namespace = locals()
+    global_namespace = globals()
+    builtin_namespace = dir(__builtins__)
+    module_namespace = dir(math)
+    return {
+        'local_namespace': local_namespace,
+        'global_namespace': global_namespace,
+        'builtin_namespace': builtin_namespace,
+        'module_namespace': module_namespace,
+    }
     pass
 
 
