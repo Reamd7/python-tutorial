@@ -25,7 +25,7 @@ from exercises.chapter03_python_overview import (
 
 
 def test_calculator_basic_math():
-    """测试基础数学运算"""
+    """测试基础数学运算 ?"""
     result = calculator_basic_math(10, 3)
     
     assert isinstance(result, dict)
